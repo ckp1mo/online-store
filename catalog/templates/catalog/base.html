@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skystore</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+        <h1 class="my-0 mr-md-auto font-weight-normal">Skystore - это маленький уютный онлайн-магазин. 🤗</h1>
+        <nav class="ms-5">
+            <a class="p-2 btn btn-outline-primary" href="/">Каталог</a>
+            <a class="p-2 btn btn-outline-primary" href="/contacts">Контакты</a>
+        </nav>
+    </div>
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h3 class="display-4">{{ title }}</h3>
+    </div>
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+                <div class="col-6 col-md">
+                    <h5>Дополнительно</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Мы пишем</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>О нас</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="/contacts">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md">
+                    SkyStore
+                    <small class="d-block mb-3 text-muted">&copy; 2023</small>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
