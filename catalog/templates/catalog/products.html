@@ -6,14 +6,14 @@
 <div class="col-3">
     <div class="card mb-4 box-shadow">
         <img class="card-img-top"
-             src="{{ object.image|mediapath }}"
+             src="{{ product.image | mediapath }}"
              alt="Card image cap">
         <div class="card-body">
             <a> </a>
         </div>
     </div>
 </div>
-<a> {{ description }}</a>
-<h3> {{ price }} ₽ </h3>
+<a> {{ product.description }}</a>
+<h3> {{ product.price }} ₽ </h3>
 <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
 {% endblock %}
