@@ -1,0 +1,24 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<h1> Запись {{object.slug}}</h1>
+<div class="col-6">
+    <div class="card">
+        <div class="card-header">
+
+        </div>
+        <div class="card-body">
+            <img class="card-img-top"
+             src="/media/{{ object.preview }}"/>
+            <p>
+            {{ object.body }}
+            </p>
+        </div>
+        <div class="card-footer">
+            <p>Просмотры: {{ object.view_count}}</p>
+            <p>Дата создания: {{ object.created_at}}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
