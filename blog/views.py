@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
@@ -22,7 +22,6 @@ class BlogRecordCreateView(CreateView):
 class BlogRecordUpdateView(UpdateView):
     model = BlogRecord
     fields = ('title', 'body', 'preview',)
-    # success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
         if form.is_valid():
