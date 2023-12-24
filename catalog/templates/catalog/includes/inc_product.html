@@ -8,7 +8,9 @@
                 <li>{{ object.description | truncatechars:100 }}</li>
             </ul>
             <h3 class="card-title pricing-card-title">{{ object.price }}р</h3>
-            <a href="{% url 'catalog:product' object.pk %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Смотреть</a>
+            <a href="{% url 'catalog:view_product' object.pk %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Смотреть</a>
+            <a href="{% url 'catalog:update_product' object.pk %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
+            <a href="{% url 'catalog:delete_product' object.pk %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Удалить</a>
         </div>
     </div>
 </div>
