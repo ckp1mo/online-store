@@ -1,11 +1,42 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
-
+{% if user.is_authenticated %}
+<a href="{% url 'catalog:create_product' %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Создать продукт</a>
+{% endif %}
+<div class="col-12">
     <div class="row text-center mt-4">
-        {% for object in object_list %}
-            {% include 'catalog/includes/inc_product.html' %}
-        {% endfor %}
-    </div>
+    {% for object in object_list %}
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h2 class="my-0 font-weight-normal">{{ object.name }}</h2>
+                    <h6 class="my-0 font-weight-normal">{{ object.user }}</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>{{ object.description | truncatechars:100 }}</li>
+                    </ul>
+                    <h3 class="card-title pricing-card-title">{{ object.price }}р</h3>
+
+                </div>
+                <div class="card-footer">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'catalog:view_product' object.pk %}" type="button"
+                           class="btn btn-lg btn-block btn-outline-primary">Смотреть</a>
+                        <a href="{% url 'catalog:update_product' object.pk %}" type="button"
+                           class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
+                        <a href="{% url 'catalog:delete_product' object.pk %}" type="button"
+                           class="btn btn-lg btn-block btn-outline-primary">Удалить</a>
+                    {% else %}
+                    <li> Нет прав для редактирования</li>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+
 
 {% endblock %}
