@@ -3,12 +3,13 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
 
+from blog.forms import BlogRecordForm
 from blog.models import BlogRecord
 
 
 class BlogRecordCreateView(CreateView):
     model = BlogRecord
-    fields = ('title', 'body', 'preview',)
+    form_class = BlogRecordForm
     success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
