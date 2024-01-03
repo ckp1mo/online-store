@@ -1,7 +1,6 @@
 from django.db import models
 
-
-NULLABLE = {'null': True, 'blank': True}
+from catalog.models import NULLABLE
 
 
 class BlogRecord(models.Model):
