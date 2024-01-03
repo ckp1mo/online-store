@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 NULLABLE = {'null': True, 'blank': True}
@@ -21,6 +22,8 @@ class Product(models.Model):
     image = models.ImageField(upload_to='catalog/', **NULLABLE, verbose_name='Превью')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     price = models.IntegerField(verbose_name='Цена за штуку')
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
 
     def __str__(self):
         return f"{self.name} ({self.category})"
