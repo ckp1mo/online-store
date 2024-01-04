@@ -1,0 +1,29 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="col-12">
+    <form class="row pt-4" method="post">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Подтверждение почты
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name">Введите код</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Код подтверждения"
+                               required>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        Отправить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
