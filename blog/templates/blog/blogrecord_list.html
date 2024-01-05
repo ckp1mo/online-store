@@ -1,7 +1,7 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
-<a href="{% url 'blog:create' %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Добавить запись</a>
+<a href="{% url 'blog:create_post' %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Добавить запись</a>
 <div class="col-12">
     <div class="row text-center mt-4">
         {% for object in object_list %}
@@ -18,11 +18,11 @@
 
                     </div>
                     <div class="card-footer">
-                            <a href="{% url 'catalog:view_product' object.pk %}" type="button"
+                            <a href="{% url 'blog:view_post' object.pk %}" type="button"
                                class="btn btn-lg btn-block btn-outline-primary">Смотреть</a>
-                            <a href="{% url 'catalog:update_product' object.pk %}" type="button"
+                            <a href="{% url 'blog:update_post' object.pk %}" type="button"
                                class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
-                            <a href="{% url 'catalog:delete_product' object.pk %}" type="button"
+                            <a href="{% url 'blog:delete_post' object.pk %}" type="button"
                                class="btn btn-lg btn-block btn-outline-primary">Удалить</a>
                             {% if object.is_published %}
                                 <a href="{% url 'blog:change_status' object.pk %}" type="button"
