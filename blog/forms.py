@@ -9,3 +9,10 @@ class BlogRecordForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = BlogRecord
         fields = ('title', 'body', 'preview',)
+
+
+class BlogRecordUpdateForm(StyleFormMixin, forms.ModelForm):
+
+    class Meta:
+        model = BlogRecord
+        fields = ('title', 'body', 'preview',)
