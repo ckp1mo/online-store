@@ -24,7 +24,7 @@ class RegisterView(CreateView):
         self.object.save()
         send_mail(
             subject='Поздравляем с регистрацией.',
-            message='Вы успешно зарегистрировались на платформе онлайн магазина SkyStore\n'
+            message='Вы успешно зарегистрировались на платформе онлайн магазина SkyStore.\n'
                     f'Для активации аккаунта в специальной форме введите код: {verify_code}',
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.object.email],
@@ -35,7 +35,7 @@ class RegisterView(CreateView):
 class VerificationView(TemplateView):
     template_name = 'users/verification.html'
 
-    def mail_verification(self, request):
+    def post(self, request):
         verify_code = request.POST.get('verification_code')
         user_code = User.objects.filter(verification_code=verify_code).first()
         if user_code is not None and user_code.verification_code == verify_code:
@@ -53,7 +53,6 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
-
 
 @login_required
 def generate_new_password(request):
