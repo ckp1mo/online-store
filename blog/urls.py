@@ -7,10 +7,10 @@ from blog.views import BlogRecordCreateView, BlogRecordListView, BlogRecordDetai
 app_name = BlogConfig.name
 
 urlpatterns = [
-    path('create/', BlogRecordCreateView.as_view(), name='create'),
-    path('', BlogRecordListView.as_view(), name='list'),
-    path('view/<int:pk>/', BlogRecordDetailView.as_view(), name='view'),
-    path('edit/<int:pk>/', BlogRecordUpdateView.as_view(), name='edit'),
-    path('delete/<int:pk>/', BlogRecordDeleteView.as_view(), name='delete'),
+    path('create/', BlogRecordCreateView.as_view(), name='create_post'),
+    path('', BlogRecordListView.as_view(), name='list_post'),
+    path('view/<int:pk>/', BlogRecordDetailView.as_view(), name='view_post'),
+    path('edit/<int:pk>/', BlogRecordUpdateView.as_view(), name='update_post'),
+    path('delete/<int:pk>/', BlogRecordDeleteView.as_view(), name='delete_post'),
     path('status/<int:pk>/', change_status, name='change_status'),
 ]
