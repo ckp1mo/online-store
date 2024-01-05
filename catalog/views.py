@@ -4,7 +4,7 @@ from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ModeratorProductForm
 from catalog.models import Product, Version
 
 
@@ -34,6 +34,12 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     model = Product
     form_class = ProductForm
     permission_required = 'catalog.change_product'
+
+    def get_form_class(self):
+        if not self.request.user.is_superuser:
+            if self.request.user.has_perm('catalog.set_published'):
+                return ModeratorProductForm
+        return ProductForm
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
