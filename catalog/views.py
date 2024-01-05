@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.forms import inlineformset_factory
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
@@ -57,6 +58,13 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
             formset.instance = self.object
             formset.save()
         return super().form_valid(form)
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if (self.object.user != self.request.user and not self.request.user.is_superuser
+                and not self.request.user.is_staff and not self.request.user.has_perm('is_published')):
+            raise Http404
+        return self.object
 
     def get_success_url(self):
         return reverse('catalog:view_product', args=[self.kwargs.get('pk')])
