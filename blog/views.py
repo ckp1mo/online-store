@@ -1,17 +1,18 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
-
-from blog.forms import BlogRecordForm
+from blog.forms import BlogRecordForm, BlogRecordUpdateForm
 from blog.models import BlogRecord
 
 
-class BlogRecordCreateView(LoginRequiredMixin, CreateView):
+class BlogRecordCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     model = BlogRecord
     form_class = BlogRecordForm
     success_url = reverse_lazy('blog:list')
+    permission_required = 'blog.add_blogrecord'
 
     def form_valid(self, form):
         if form.is_valid():
@@ -21,9 +22,10 @@ class BlogRecordCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class BlogRecordUpdateView(LoginRequiredMixin, UpdateView):
+class BlogRecordUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     model = BlogRecord
-    fields = ('title', 'body', 'preview',)
+    form_class = BlogRecordUpdateForm
+    permission_required = 'blog.change_blogrecord'
 
     def form_valid(self, form):
         if form.is_valid():
@@ -33,7 +35,7 @@ class BlogRecordUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:view', args=[self.kwargs.get('pk')])
+        return reverse('blog:view_post',     args=[self.kwargs.get('pk')])
 
 
 class BlogRecordListView(LoginRequiredMixin, ListView):
@@ -41,12 +43,14 @@ class BlogRecordListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
-        queryset = queryset.filter(is_published=True)
-        return queryset
+        if self.request.user.is_superuser or self.request.user.has_perm('blog.set_published') :
+            return queryset
+        return queryset.filter(is_published=True)
 
 
-class BlogRecordDetailView(LoginRequiredMixin, DetailView):
+class BlogRecordDetailView(PermissionRequiredMixin, LoginRequiredMixin, DetailView):
     model = BlogRecord
+    permission_required = 'blog.view_blogrecord'
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -55,11 +59,13 @@ class BlogRecordDetailView(LoginRequiredMixin, DetailView):
         return self.object
 
 
-class BlogRecordDeleteView(LoginRequiredMixin, DeleteView):
+class BlogRecordDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     model = BlogRecord
-    success_url = reverse_lazy('blog:list')
+    success_url = reverse_lazy('blog:list_post')
+    permission_required = 'blog.delete_blogrecord'
 
 
+@permission_required('blog.set_published')
 def change_status(request, pk):
     record_item = get_object_or_404(BlogRecord, pk=pk)
     if record_item.is_published:
@@ -68,4 +74,4 @@ def change_status(request, pk):
         record_item.is_published = True
 
     record_item.save()
-    return redirect(reverse('blog:list'))
+    return redirect(reverse('blog:list_post'))
