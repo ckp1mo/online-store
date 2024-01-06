@@ -7,6 +7,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from catalog.forms import ProductForm, VersionForm, ModeratorProductForm
 from catalog.models import Product, Version
+from catalog.services import cache_category
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -29,6 +30,9 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
         self.object.user = self.request.user
         self.object.save()
         return super().form_valid(form)
+
+    def get_queryset(self):
+        return cache_category()
 
 
 class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
