@@ -4,3 +4,4 @@ pillow
 ipython
 pytils
 redis
+python-dotenv
