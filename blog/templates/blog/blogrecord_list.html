@@ -1,39 +1,48 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
+{% if perms.blog.add_blogrecord %}
 <a href="{% url 'blog:create_post' %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Добавить запись</a>
+{% endif %}
 <div class="col-12">
     <div class="row text-center mt-4">
         {% for object in object_list %}
-            <div class="col-6">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-header">
-                        <h2 class="my-0 font-weight-normal">{{ object.title }}</h2>
-                        <h6 class="my-0 font-weight-normal">{{ object.user }}</h6>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                            <li>{{ object.body | truncatechars:100 }}</li>
-                        </ul>
-
-                    </div>
-                    <div class="card-footer">
-                            <a href="{% url 'blog:view_post' object.pk %}" type="button"
-                               class="btn btn-lg btn-block btn-outline-primary">Смотреть</a>
-                            <a href="{% url 'blog:update_post' object.pk %}" type="button"
-                               class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
-                            <a href="{% url 'blog:delete_post' object.pk %}" type="button"
-                               class="btn btn-lg btn-block btn-outline-primary">Удалить</a>
-                            {% if object.is_published %}
-                                <a href="{% url 'blog:change_status' object.pk %}" type="button"
-                                   class="btn btn btn-block btn-outline-primary">Деактивировать</a>
-                                {% else %}
-                                <a href="{% url 'blog:change_status' object.pk %}" type="button"
-                                   class="btn btn btn-block btn-outline-primary">Активировать</a>
-                            {% endif %}
-                    </div>
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h2 class="my-0 font-weight-normal">{{ object.title }}</h2>
+                    <h6 class="my-0 font-weight-normal">{{ object.user }}</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>{{ object.body | truncatechars:100 }}</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    {% if perms.blog.view_blogrecord %}
+                    <a href="{% url 'blog:view_post' object.pk %}" type="button"
+                       class="btn btn-lg btn-block btn-outline-primary">Смотреть</a>
+                    {% endif %}
+                    {% if perms.blog.change_blogrecord %}
+                    <a href="{% url 'blog:update_post' object.pk %}" type="button"
+                       class="btn btn-lg btn-block btn-outline-primary">Изменить</a>
+                    {% endif %}
+                    {% if perms.blog.delete_blogrecord %}
+                    <a href="{% url 'blog:delete_post' object.pk %}" type="button"
+                       class="btn btn-lg btn-block btn-outline-primary">Удалить</a>
+                    {% endif %}
+                    {% if user.is_staff %}
+                        {% if object.is_published %}
+                        <a href="{% url 'blog:change_status' object.pk %}" type="button"
+                           class="btn btn btn-block btn-outline-primary">Деактивировать</a>
+                        {% else %}
+                        <a href="{% url 'blog:change_status' object.pk %}" type="button"
+                           class="btn btn btn-block btn-outline-primary">Активировать</a>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>
