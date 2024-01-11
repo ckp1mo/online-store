@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, TemplateView
 from users.forms import UserRegisterForm, UserForm
@@ -24,7 +24,7 @@ class RegisterView(CreateView):
         self.object.save()
         send_mail(
             subject='Поздравляем с регистрацией.',
-            message='Вы успешно зарегистрировались на платформе онлайн магазина SkyStore.\n'
+            message='Вы успешно зарегистрировались на платформе онлайн магазина Wrum-store.\n'
                     f'Для активации аккаунта в специальной форме введите код: {verify_code}',
             from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.object.email],
@@ -43,7 +43,11 @@ class VerificationView(TemplateView):
             user_code.save()
             return redirect('users:login')
         else:
-            return redirect('users:login')
+            return redirect('users:verify_email_error')
+
+
+def error_verification(request):
+    return render(request, 'users/verify_email_error.html')
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
