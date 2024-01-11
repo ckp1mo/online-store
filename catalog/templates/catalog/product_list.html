@@ -12,11 +12,10 @@
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
                     {% if not object.is_published %}
-                    <h2 class="my-0 text-muted">{{ object.name }}</h2>
+                    <h2 class="my-0 font-weight-normal text-muted">{{ object.name }}</h2>
                     {% else %}
                     <h2 class="my-0 font-weight-normal">{{ object.name }}</h2>
                     {% endif %}
-                    <h6 class="my-0 font-weight-normal">{{ object.user }}</h6>
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
@@ -26,6 +25,7 @@
 
                 </div>
                 <div class="card-footer">
+                    <h6 class="my-0 text-left font-weight-normal">Автор: {{ object.user }}</h6>
                     {% if perms.catalog.view_product %}
                     <a href="{% url 'catalog:view_product' object.pk %}" type="button"
                        class="btn btn-outline-info">Смотреть</a>

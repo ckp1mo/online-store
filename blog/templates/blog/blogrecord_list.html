@@ -10,7 +10,11 @@
         <div class="col-6">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
+                    {% if not object.is_published %}
+                    <h2 class="my-0 font-weight-normal text-muted">{{ object.title }}</h2>
+                    {% else %}
                     <h2 class="my-0 font-weight-normal">{{ object.title }}</h2>
+                    {% endif %}
                     <h6 class="my-0 font-weight-normal">{{ object.user }}</h6>
                 </div>
                 <div class="card-body">
