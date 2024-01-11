@@ -24,7 +24,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена за штуку')
     is_published = models.BooleanField(default=True, verbose_name='Статус продукта')
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь', **NULLABLE)
 
     def __str__(self):
         return f"{self.name} ({self.category})"

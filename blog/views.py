@@ -11,13 +11,14 @@ from blog.models import BlogRecord
 class BlogRecordCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     model = BlogRecord
     form_class = BlogRecordForm
-    success_url = reverse_lazy('blog:list')
+    success_url = reverse_lazy('blog:list_post')
     permission_required = 'blog.add_blogrecord'
 
     def form_valid(self, form):
         if form.is_valid():
             new_rec = form.save()
             new_rec.slug = slugify(new_rec.title)
+            new_rec.user = self.request.user
             new_rec.save()
         return super().form_valid(form)
 

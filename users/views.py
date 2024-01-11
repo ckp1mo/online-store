@@ -54,6 +54,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+
 @login_required
 def generate_new_password(request):
     new_password = User.objects.make_random_password()
