@@ -15,12 +15,12 @@
                 <div class="card-body">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-outline-success">
                         Сохранить
                     </button>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'users:generate_new_password' %}" type="button" class="btn btn-danger">Сгенерировать пароль</a>
+                    <a href="{% url 'users:generate_new_password' %}" type="button" class="btn btn-outline-danger">Сгенерировать пароль</a>
                 </div>
             </div>
         </div>
