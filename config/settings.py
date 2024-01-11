@@ -13,7 +13,7 @@ load_dotenv(BASE_DIR / '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-5fzs-_(*4uwev#tng3lz8dn2w0jcr3qsdv=9=ozu2)uj#v55i3'
-PASSWORD_PSQL = os.getenv('PASSWORD_POSTGRESQL')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -75,8 +75,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'catalog',
-        'USER': 'postgres',
-        'PASSWORD': PASSWORD_PSQL,
+        'USER': os.getenv('USER_POSTGRESQL'),
+        'PASSWORD': os.getenv('PASSWORD_POSTGRESQL'),
     }
 }
 
