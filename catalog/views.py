@@ -10,6 +10,10 @@ from catalog.models import Product, Version
 from catalog.services import cache_category
 
 
+def home_page(request):
+    return render(request, 'catalog/home.html')
+
+
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product
 

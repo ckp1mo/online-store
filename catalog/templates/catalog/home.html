@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+
+{% block title %}
+<title>Главная</title>
+{% endblock %}
+{% block content %}
+<div class="col-12">
+    <div class="row pt-4 text-start">
+        <div class="col-6">
+            <img class="img-thumbnail"
+             src="/static/media/home_biker.png"
+             alt="Card image cap">
+        </div>
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h3 class="my-0 text-right font-weight-normal">Мы Вас приветствуем!</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="text-md-right">Вы попали в маленький мотоуголок. </h5>
+                    <h5> </h5>
+                    <h5 class="text-md-right">Если вы такой же любитель мото тематики, то вам у нас определенно понравится, и мы рады каждому из вас!</h5>
+                    <h5 class="text-md-right">У нас портале вы сможете байкерские лайфхаки для начинающих райдеров в разделе Блог.  </h5>
+                    <h5 class="text-md-right">Так же у нас есть маленькая пользовательская площадка с продажей своих мотоциклов, возможно вам что-то будет интересно.</h5>
+                    <h5 class="text-md-right">Для продолжения пользоваться площадкой рекомендуем вам авторизоваться или зарегистрироваться.</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
