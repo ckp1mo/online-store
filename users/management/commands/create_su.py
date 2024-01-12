@@ -12,6 +12,7 @@ class Command(BaseCommand):
             last_name='Skystore',
             is_staff=True,
             is_superuser=True,
+            avatar='users/avatar-admin.jpg'
         )
         user.set_password('qwerty321')
         user.save()
