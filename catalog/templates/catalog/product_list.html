@@ -1,5 +1,8 @@
 {% extends 'catalog/base.html' %}
 
+{% block title %}
+<title>Каталог</title>
+{% endblock %}
 {% block content %}
 {% if perms.catalog.add_product %}
 <a href="{% url 'catalog:create_product' %}" type="button" class="btn btn-lg btn-block btn-outline-primary">Создать

@@ -1,11 +1,29 @@
 {% extends 'catalog/base.html' %}
 
+{% block title %}
+<title>
+    {% if object %}
+        Изменение записи
+    {% else %}
+        Добавление записи
+    {% endif %}
+</title>
+{% endblock %}
 {% block content %}
     <div class="col-12">
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
                 <div class="card">
+                    <div class="card-header">
+                        <h3>
+                            {% if object %}
+                                Изменение записи
+                            {% else %}
+                                Добавление записи
+                            {% endif%}
+                        </h3>
+                    </div>
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}

@@ -1,7 +1,9 @@
 {% extends 'catalog/base.html' %}
 
 {% load my_tags %}
-
+{% block title %}
+<title>{{ object.name }}</title>
+{% endblock %}
 {% block content %}
 <div class="col-12">
     <h4> Категория: {{ object.category }}</h4>
